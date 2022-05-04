@@ -2,7 +2,7 @@ import { Api } from "helpers/Api";
 
 const parseResponse = (response) => response.json();
 
-const tranformPaleta = (paleta) => {
+const transformPaleta = (paleta) => {
   const [sabor, recheio] = paleta.sabor.split(" com ");
 
   return {
@@ -15,14 +15,17 @@ const tranformPaleta = (paleta) => {
   };
 };
 
-const parseTransformLista = (response) => 
-parseResponse(response).then((paletas) => paletas.map(tranformPaleta))
+const parseTransformLista = (response) =>
+  parseResponse(response).then((paletas) => paletas.map(transformPaleta));
+
+const parseTransformItem = (response) =>
+  parseResponse(response).then(transformPaleta);
 
 export const PaletaService = {
   getLista: () =>
     fetch(Api.paletaLista(), { method: "GET" }).then(parseTransformLista),
   getById: (id) =>
-    fetch(Api.paletaById(), { method: "GET" }).then(parseResponse),
+    fetch(Api.paletaById(), { method: "GET" }).then(parseTransformItem),
   create: () =>
     fetch(Api.createPaleta(), { method: "POST" }).then(parseResponse),
   updtateById: (id) =>
