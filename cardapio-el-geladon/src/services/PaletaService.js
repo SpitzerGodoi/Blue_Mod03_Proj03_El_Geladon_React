@@ -25,7 +25,7 @@ export const PaletaService = {
   getLista: () =>
     fetch(Api.paletaLista(), { method: "GET" }).then(parseTransformLista),
   getById: (id) =>
-    fetch(Api.paletaById(), { method: "GET" }).then(parseTransformItem),
+    fetch(Api.paletaById(id), { method: "GET" }).then(parseTransformItem),
   create: () =>
     fetch(Api.createPaleta(), { method: "POST" }).then(parseResponse),
   updtateById: (id) =>
